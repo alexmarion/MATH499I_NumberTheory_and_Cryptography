@@ -1,0 +1,93 @@
+Elliptic Curve Cryptography
+
+An elliptic curve over real numbers is defined by the set of points (x,y) which
+satisfy an elliptic curve equation of the form y^2 = x^3 + ax + b where x,y,a,b
+are real numbers.
+
+If x^3 + ax + b contains now repeated factors, or equivalently if
+4a^3 + 27b^2 != 0 then the elliptic curve y^2 = x^3 + ax + b can be used to form
+a group. An elliptic curve group over real numbers consists of the points on the
+corresponding elliptic curve together with a special point O called the point at
+infinity.
+
+The negative of a point P = (xP,yP) is its reflection on the x-axis
+    -P = (xP,-yP)
+For every P on an elliptic curve a -P exists
+
+Suppose that P and Q are two distinct points on an elliptic curve and P != -Q
+To add P and Q a line is drawn through the two points. This line will intersect
+the elliptic curve in exactly one more point called -R. The point -R is
+reflected on the x-axis to the point R. The law for addition in elliptic curve
+curve group is P + Q = R
+
+P and -P cannot be added as above because the line through them is vertical and
+thus will never intersect a third point. The elliptic curve group includes the
+point at infinity, O. By definition P + (-P) = O. As a result of this equation,
+P + O = P. O is called the additive identity.
+
+To add P to itself a tangent line is drawn. If yP != 0 then the tangent
+intersects the curve at another point -R which is then reflected on the x-axis
+to R. This is called doubling the point P and is defined by P + P = 2P = R
+
+The tangent line from P is always vertical if yP = 0 and the tangent will never
+intersect the curve. 2P = O for such a point P. In this case 2P + P = 3P = P
+because P + O = P.
+
+Arithmetic for adding two distinct points P and Q is shown below:
+When P = (xP,yP) and Q = (xQ,yQ) and P != -Q
+P + Q = R where
+s = (yP-yQ)/(xP-xQ)
+xR = s^2 - xP - xQ
+yR = -yP + s(xP - xR)
+R = (xR,yR)
+
+Arithmetic for doubling the point P
+When P = (xP,yP) and yP != 0
+2P = R where
+s = (3xP^2 + a)/(2yP)       // Recall that a is one of the curve parameters
+                            // Recall that s is the tangent line to P
+xR = s^2 - 2xP
+yR = -yP + s(xP - xR)
+R = (xR, yR)
+
+------------------------------ Finite Fields -----------------------------------
+Elliptic curve groups are calculated over finite fields of Fp and F2m. Fp uses
+numbers from 0 to p-1 and computations end by taking the remainder on division
+by p. For example, in F23 the field is composed of integers from 0 to 22 and any
+operation within this field will result in an int also between 0 and 22.
+
+................................... Fp .........................................
+An elliptic curve with the underlying field of Fp can be formed by choosing
+variables a and b within Fp. The elliptic curve includes all points (x,y) which
+satisfy the elliptic curve equation mod p (where x and y are numbers in Fp).
+
+For example: y^2 (mod p) = x^3 + ax + b (mod p) has an underlying field of Fp
+if a and b are in Fp.
+
+If x^3 + ax + b contains no repeating factors, equivalently if
+4a^3 + 27b^2 (mod p) != 0 then the elliptic curve can be used to form a group.
+An elliptic curve group over Fp consists of the points on the corresponding
+elliptic curve, together with O. There are finitely many points on such an
+elliptic curve.
+
+The arithmetic rules for elliptic curve groups over Fp have to change as well
+The negative of a point P = (xP, yP) is -P =(xP, -yP mod p).
+
+Arithmetic for adding two distinct points P and Q is shown below:
+When P = (xP,yP) and Q = (xQ,yQ) and P != -Q
+P + Q = R where
+s = (yP-yQ)/(xP-xQ) (mod p)
+xR = s^2 - xP - xQ (mod p)
+yR = -yP + s(xP - xR) (mod p)
+R = (xR,yR)
+
+Arithmetic for doubling the point P
+When P = (xP,yP) and yP != 0
+2P = R where
+s = (3xP^2 + a)/(2yP) (mod p)   // Recall that a is one of the curve parameters
+                                // Recall that s is the tangent line to P
+xR = s^2 - 2xP (mod p)
+yR = -yP + s(xP - xR) (mod p)
+R = (xR, yR)
+
+................................... F2m ........................................

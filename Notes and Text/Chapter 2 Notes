@@ -1,0 +1,54 @@
+Idea for fast prime check:
+Integer p > 1 is only prime iff (p-1)! = -1 (mod p)
+use memoization to calculate factorials
+Space complexity: n
+Time complexity: n (when run first time, 1 any other time)
+
+Sage code for printing triples:
+    for n in range(1,10):
+        print n, factorial(n-1) % n, -1 % n
+
+Chinese Remainder Theorem:
+Question: There is a quantity whose number is unknown. Repeatedly divided by 3,
+the remainder is 2; by 5 the remainder is 3; and by 7 the remainder is 2. What
+is the quantity?
+    x = 2 (mod 3)
+    x = 3 (mod 5)
+    x = 2 (mod 7)
+
+Extended Euclidean Algorithm:
+Suppose a and b are integers and let g = gcd(a,b). This algorithm finds g, x,
+and y such that ax + by = g. Steps only when a > b >= 0 because easily reducible
+to this case.
+    1. [Initialize] Set x = 1, y = 0, r = 0, s = 1
+    2. [Finished?] If b = 0, set g = a and terminate
+    3. [Quotient and Remainder] Use algorithm 1.1.12 to write a = qb + c with
+        0 <= c < b
+    4. [Shift] Set (a,b,r,s,x,y) = (b,c,x-qr,y-qs,r,s) and go to step 2
+
+Inverse Modulo n:
+    1. [Compute Extended GCD]: Useing EEA compute x, y s.t. ax + ny = gcd(a,n) = 1
+    2. [Finished] output x
+
+Elliptic Curves:
+    E = {(x,y) | y^2 = x^3 + ax + b}
+    a,b in K
+    K: R, Q, C, Z/pZ
+    4a^3 + 27b^2 != 0
+
+    Adding two points on elliptic curve: given P = (x1, y1) and Q = (x2, y2)
+    Find the line through P and Q, extend until intersection, reflect
+    R = (x3, y3) = P + Q
+    s = (y1 - y2)/(x1 - x2)
+    x3 = s^2 - (x1 + x2)
+    y3 = s(x1 - x2) - y1
+
+    Point Doubling: P + P = R = 2P
+    P = (x1, y1), R = (x2, y2)
+    Find the tangent line to p, extend until intersection, reflect
+    s = (3(x1)^2 + a)/(2y1)
+    x2 = s^2 - 2x1
+    y2 = s(x1 - x2) - y1
+
+    P + Q = Infinity if x1 = x2
+    P + P = Infinity if x = 0
